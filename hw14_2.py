@@ -15,10 +15,10 @@ class BeePhant:
     def eat(self, meal, value):
         if meal == 'nectar':
             self.bee = min(100, self.bee + value)
-            self.elephant = max(0, self.bee - value)
+            self.elephant = max(0, self.elephant - value)
         elif meal == 'grass':
-            self.bee = max(0, self.bee + value)
-            self.elephant = min(100, self.bee - value)
+            self.bee = max(0, self.bee - value)
+            self.elephant = min(100, self.elephant + value)
         else:
             raise ValueError('meal is nectar or grass')
 
