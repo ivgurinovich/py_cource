@@ -1,10 +1,7 @@
-from idlelib.pyshell import extended_linecache_checkcache
-
-
 class BeePhant:
     def __init__(self, bee, elephant):
-        self.bee = max(0,min(100, bee))
-        self.elephant = max(0,min(100, elephant))
+        self.bee = max(0, min(100, bee))
+        self.elephant = max(0, min(100, elephant))
 
     def fly(self):
         return self.bee >= self.elephant
@@ -26,7 +23,7 @@ class BeePhant:
             raise ValueError('meal is nectar or grass')
 
 
-ps = BeePhant(40,50)
+ps = BeePhant(40, 50)
 print(f"fly  = {ps.bee}, elephant = {ps.elephant}")
 print(ps.fly())
 print(ps.trumpet())
