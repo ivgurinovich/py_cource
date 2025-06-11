@@ -1,0 +1,43 @@
+create table employees (
+	id SERIAL primary key,
+	Name VARCHAR(50),
+	Position VARCHAR(100),
+	Department VARCHAR(100),
+	Salary DECIMAL (10, 2)
+);
+
+insert into employees (name, position, department, salary) values
+	('Dima', 'CEO', 'Main Department', '100000'),
+	('Katya', 'CFO', 'Main Department', '150000'),
+	('Oleg', 'Manager', 'Minor Department', '80000'),
+	('Sanya', 'Cleaning Manager', 'Cleaning Department','4999'),
+	('David', 'Sales Manager', 'Sales','70000')
+;
+
+update employees
+set position  = 'Lead Manager'
+where name = 'Oleg';
+
+
+alter table employees
+add column HireDate DATE DEFAULT null;
+
+
+update employees
+set hiredate = case
+	when name = 'Dima' then '2020-01-10'
+	when name = 'Katya' then '2020-01-11'
+	when name = 'Oleg' then '2022-05-15'
+	when name = 'Sanya' then CURRENT_DATE
+	when name = 'David' then '2020-01-15'
+end;
+
+select name from employees e where LOWER(position) like '%manager%';
+
+select name from employees e where salary > 5000;
+
+select name from employees e where department = 'Sales';
+
+select avg(salary) from employees e;
+
+drop table employees;
