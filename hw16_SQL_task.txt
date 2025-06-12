@@ -7,11 +7,11 @@ create table employees (
 );
 
 insert into employees (name, position, department, salary) values
-	('Dima', 'CEO', 'Main Department', '100000'),
-	('Katya', 'CFO', 'Main Department', '150000'),
-	('Oleg', 'Manager', 'Minor Department', '80000'),
-	('Sanya', 'Cleaning Manager', 'Cleaning Department','4999'),
-	('David', 'Sales Manager', 'Sales','70000')
+	('Dima', 'CEO', 'Main Department', 100000),
+	('Katya', 'CFO', 'Main Department', 150000),
+	('Oleg', 'Manager', 'Minor Department', 80000),
+	('Sanya', 'Cleaning Manager', 'Cleaning Department', 4999),
+	('David', 'Sales Manager', 'Sales', 70000)
 ;
 
 update employees
