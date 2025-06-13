@@ -81,7 +81,59 @@ def add_sales(sales):
         conn.close()
 
 
+def drop_all_tables():
+    conn = get_connection()
+    try:
+        with conn:
+            with conn.cursor() as cur:
+                cur.execute("DROP TABLE IF EXISTS sales;")
+                cur.execute("DROP TABLE IF EXISTS books;")
+                cur.execute("DROP TABLE IF EXISTS authors;")
+                print("Tables dropped successfully.")
+    except Exception as e:
+        print("An error occurred while dropping tables:", e)
+    finally:
+        conn.close()
+
+
+def create_all_tables():
+    conn = get_connection()
+    try:
+        with conn:
+            with conn.cursor() as cur:
+                cur.execute('''
+                    CREATE TABLE authors (
+                        id SERIAL PRIMARY KEY,
+                        first_name VARCHAR(100),
+                        last_name VARCHAR(100)
+                    );
+                ''')
+                cur.execute('''
+                    CREATE TABLE books (
+                        id SERIAL PRIMARY KEY,
+                        title VARCHAR(100),
+                        author_id INT,
+                        publication_year INT,
+                        FOREIGN KEY (author_id) REFERENCES authors(id)
+                    );
+                ''')
+                cur.execute('''
+                    CREATE TABLE sales (
+                        id SERIAL PRIMARY KEY,
+                        book_id INT,
+                        quantity INT,
+                        FOREIGN KEY (book_id) REFERENCES books(id)
+                    );
+                ''')
+                print("Tables created successfully.")
+    except Exception as e:
+        print("An error occurred while creating tables:", e)
+    finally:
+        conn.close()
+
+
 get_connection()
+create_all_tables()
 create_author('George', 'Orwell')
 create_author('Jane', 'Austen')
 create_author('Mark', 'Twain')
@@ -102,3 +154,4 @@ add_sales([
 select_all('authors')
 select_all('books')
 select_all('sales')
+# drop_all_tables()
