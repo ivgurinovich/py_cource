@@ -1,0 +1,22 @@
+create table authors(
+	id serial primary key,
+	first_name varchar(100),
+	last_name varchar(100)
+);
+
+
+create table books(
+	id serial primary key,
+	title varchar(100),
+	author_id int,
+	publication_year int,
+	foreign key(author_id) references authors(id)
+);
+
+
+create table sales(
+	id serial primary key,
+	book_id int,
+	quantity int,
+	foreign key(book_id) references books(id)
+);
