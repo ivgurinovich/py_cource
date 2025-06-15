@@ -38,6 +38,7 @@ def multiple_joins_inner():
     finally:
         conn.close()
 
+
 def multiple_joins_left():
     conn = get_connection()
     try:
@@ -62,5 +63,7 @@ def multiple_joins_left():
         print("An error occurred:", e)
     finally:
         conn.close()
+
+
 multiple_joins_inner()
 multiple_joins_left()
