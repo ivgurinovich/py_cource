@@ -62,5 +62,5 @@ def multiple_joins_left():
         print("An error occurred:", e)
     finally:
         conn.close()
-# multiple_joins_inner()
+multiple_joins_inner()
 multiple_joins_left()
