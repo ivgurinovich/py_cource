@@ -56,7 +56,7 @@ def multiple_joins_left():
                    '''
                 )
                 result = cur.fetchall()
-                print(f"List of all books with authors and sales:\n")
+                print(f"List of all authors with books and sales:\n")
                 print(*result, sep='\n')
     except Exception as e:
         print("An error occurred:", e)
