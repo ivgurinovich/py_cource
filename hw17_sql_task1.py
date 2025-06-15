@@ -143,13 +143,15 @@ add_books([
     ('Animal Farm', 1, 1945),
     ('Pride and Prejudice', 2, 1813),
     ('Adventures of Huckleberry Finn', 3, 1884),
-    ('Unnamed Book', None, 2001)
+    ('Unnamed Book', None, 2001),
+    ('Book without Sales', None, 2002),
 ])
 add_sales([
     (1, 3),
     (2, 1),
     (3, 2),
-    (4, 5)
+    (4, 5),
+    (5, None)
 ])
 select_all('authors')
 select_all('books')

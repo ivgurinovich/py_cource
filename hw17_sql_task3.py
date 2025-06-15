@@ -38,5 +38,29 @@ def multiple_joins_inner():
     finally:
         conn.close()
 
-
-multiple_joins_inner()
+def multiple_joins_left():
+    conn = get_connection()
+    try:
+        with conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    '''select 
+                       authors.first_name, 
+                       authors.last_name,
+                       books.title, 
+                       sales.quantity
+                   from authors
+                   left join books on books.author_id = authors.id
+                   left join sales on books.id = sales.book_id
+                   GROUP BY authors.first_name, authors.last_name, books.title, sales.quantity;
+                   '''
+                )
+                result = cur.fetchall()
+                print(f"List of all books with authors and sales:\n")
+                print(*result, sep='\n')
+    except Exception as e:
+        print("An error occurred:", e)
+    finally:
+        conn.close()
+# multiple_joins_inner()
+multiple_joins_left()
