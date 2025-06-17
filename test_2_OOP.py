@@ -7,6 +7,12 @@ class Transport(ABC):
         self.capacity = capacity
         self.booked_seats = set()
 
+    def booked_seats(self):
+        return self._booked_seats.copy()
+
+
+
+
     def book_seat(self, seat_number):
         if not isinstance(seat_number, int):
             return f"Seat number must be integer."

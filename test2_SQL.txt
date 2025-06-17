@@ -1,0 +1,91 @@
+CREATE TABLE passengers (
+    id SERIAL primary key,
+    name varchar(50),
+    passport_number varchar(10) UNIQUE
+);
+
+CREATE TYPE transport_type AS ENUM ('bus', 'train', 'plane');
+
+CREATE TABLE transport (
+	id SERIAL primary key,
+	type transport_type,
+	model_or_route varchar(100),
+	capacity int
+);
+
+CREATE TABLE bookings (
+	id SERIAL primary key,
+	passenger_id int references passengers(id),
+	transport_id int references transport(id),
+	seat_number int,
+	tour_date date
+);
+
+insert into passengers (name, passport_number) values
+('Vasya', 'mc123456'),
+('Dima','mp654987'),
+('Vika', 'mc987321'),
+('Anton', 'aq753951'),
+('Sanya','po518845')
+;
+
+INSERT INTO transport (type, model_or_route, capacity) values
+('bus', 'Route 32', 50),
+('train', 'Airport - Downtown', 100),
+('plane', 'Miami - Warsaw', 500)
+;
+
+INSERT INTO bookings (passenger_id, transport_id, seat_number, tour_date) values
+(1,1,50, '2025-06-17'),
+(2,2,80,'2025-06-17'),
+(3,3, 456,'2025-06-17'),
+(5,3,2,'2025-05-01')
+;
+
+
+select * from passengers
+
+select name, passport_number
+	from passengers
+	join bookings
+	on passengers.id = bookings.passenger_id;
+
+
+select transport.type, transport.model_or_route, count(bookings.id) as booked
+	from transport
+	left join bookings
+	on transport.id = bookings.transport_id
+	group by transport.type, transport.model_or_route;
+
+select passengers.name
+	from passengers
+	join bookings on passengers.id = bookings.passenger_id
+	where bookings.tour_date between '2025-05-01' and '2025-05-31';
+
+select transport.type,count(bookings.id) as bookings_quantity
+	from transport
+	join bookings
+	on transport.id = bookings.transport_id
+	group by transport.type
+	order by bookings_quantity desc;
+
+
+select 50 - count(*) as available_seats
+	from bookings
+	where transport_id = 1;
+
+
+select passengers.name, passengers.passport_number, transport.type, bookings.seat_number
+	from bookings
+	join passengers
+	on bookings.passenger_id = passengers.id
+	join transport
+	on bookings.transport_id = transport.id;
+
+select DISTINCT passengers.name, passengers.passport_number
+	from passengers
+	join bookings
+	on passengers.id = bookings.passenger_id
+	join transport
+	on bookings.transport_id = transport.id
+	where transport.type = 'train';
